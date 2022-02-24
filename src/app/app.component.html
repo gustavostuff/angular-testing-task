@@ -1,0 +1,26 @@
+<div class="container">
+  <form class="mt-2" [formGroup]="searchForm">
+    <input
+      type="text"
+      class="search-box"
+      placeholder="Search bug title"
+      formControlName="searchValue"
+    />
+  </form>
+  
+  <div *ngIf="(bugs$ | async) as bugs; else loading">
+    <div *ngIf="bugs.length; else noResults">
+      <div class="bug-item" *ngFor="let bug of bugs">
+        {{bug.title}}
+      </div>
+    </div>
+
+    <ng-template #noResults>
+      <h1>No results found</h1>
+    </ng-template>
+  </div>
+
+  <ng-template #loading>
+    <img *ngIf="loaded" class="loading-icon mt-2" width="50" src="../assets/loading-icon.svg" alt="Loading icon" />
+  </ng-template>
+</div>
